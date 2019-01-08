@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,13 +17,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class First extends AppCompatActivity {
 
     public FirebaseDatabase firebaseDatabase;
-    public DatabaseReference LED,LED1,LED2,LED3;
+    public DatabaseReference LED,LED1,LED2,LED3,Refer;
     public static final String TAG = "LEDs Control";
     public Button Switch, Switch1, Switch2, Switch3;
     public Integer Value1, Value0;
+    public String Data;
+    public TextView textview1;
+
 
 
     @Override
@@ -34,6 +41,22 @@ public class First extends AppCompatActivity {
         LED1 = firebaseDatabase.getReference("Switch/LED1");
         LED2 = firebaseDatabase.getReference("Switch/LED2");
         LED3 = firebaseDatabase.getReference("Switch/LED3");
+        textview1 = (TextView)  findViewById(R.id.txtView);
+
+        Refer.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map map = (Map) dataSnapshot.getValue();
+                Data = String.valueOf(map.get("Switch"));
+                textview1.setText(Data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         Switch = (Button) findViewById(R.id.button3);
         LED.addValueEventListener(new ValueEventListener() {
