@@ -25,7 +25,7 @@ public class First extends AppCompatActivity {
     public DatabaseReference LED,LED1,LED2,LED3,Refer,Refer1;
     public static final String TAG = "LEDs Control";
     public Button Switch, Switch1, Switch2, Switch3;
-    public Integer Value1, Value0,Value2,Value3,Value4;
+    public Integer Value1, Value0;
     public String Data;
     public TextView txtname,textview,textview1,textview2,textview3;
 
@@ -41,6 +41,9 @@ public class First extends AppCompatActivity {
         LED1 = firebaseDatabase.getReference("Switch/LED1");
         LED2 = firebaseDatabase.getReference("Switch/LED2");
         LED3 = firebaseDatabase.getReference("Switch/LED3");
+
+        Refer = firebaseDatabase.getReference();
+        Refer1 = firebaseDatabase.getReference();
 
         txtname = (TextView)  findViewById(R.id.txtViewname);
 
