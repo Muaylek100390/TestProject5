@@ -25,7 +25,7 @@ public class First extends AppCompatActivity {
     public DatabaseReference LED,LED1,LED2,LED3,Refer,Refer1;
     public static final String TAG = "LEDs Control";
     public Button Switch, Switch1, Switch2, Switch3;
-    public Integer Value1, Value0;
+    public Integer Value1, Value0, Value01, Value02, Value03;
     public String Data;
     public TextView txtname,textview,textview1,textview2,textview3;
 
@@ -37,18 +37,18 @@ public class First extends AppCompatActivity {
         setContentView(R.layout.activity_first);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        LED = firebaseDatabase.getReference("Switch/LED");
-        LED1 = firebaseDatabase.getReference("Switch/LED1");
-        LED2 = firebaseDatabase.getReference("Switch/LED2");
-        LED3 = firebaseDatabase.getReference("Switch/LED3");
+        LED = firebaseDatabase.getReference("LED");
+        LED1 = firebaseDatabase.getReference("LED1");
+        LED2 = firebaseDatabase.getReference("LED2");
+        LED3 = firebaseDatabase.getReference("LED3");
 
         Refer = firebaseDatabase.getReference();
         Refer1 = firebaseDatabase.getReference();
 
         txtname = (TextView)  findViewById(R.id.txtViewname);
 
-        textview = (TextView) findViewById(R.id.txtView1);
-        textview1 = (TextView) findViewById(R.id.txtView2);
+        textview = (TextView) findViewById(R.id.txtView2);
+        textview1 = (TextView) findViewById(R.id.txtView1);
         textview2 = (TextView) findViewById(R.id.txtView3);
         textview3 = (TextView) findViewById(R.id.txtView4);
 
@@ -70,7 +70,7 @@ public class First extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map map = (Map) dataSnapshot.getValue();
-                Data = String.valueOf(map.get("Switch/LED"));
+                Data = String.valueOf(map.get("LED"));
                 textview.setText(Data);
             }
 
@@ -84,21 +84,7 @@ public class First extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map map = (Map) dataSnapshot.getValue();
-                Data = String.valueOf(map.get("Switch/LED1"));
-                textview1.setText(Data);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        Refer1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Map map = (Map) dataSnapshot.getValue();
-                Data = String.valueOf(map.get("Switch/LED2"));
+                Data = String.valueOf(map.get("LED1"));
                 textview2.setText(Data);
             }
 
@@ -112,7 +98,21 @@ public class First extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map map = (Map) dataSnapshot.getValue();
-                Data = String.valueOf(map.get("Switch/LED3"));
+                Data = String.valueOf(map.get("LED2"));
+                textview1.setText(Data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Refer1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map map = (Map) dataSnapshot.getValue();
+                Data = String.valueOf(map.get("LED3"));
                 textview3.setText(Data);
             }
 
@@ -159,10 +159,10 @@ public class First extends AppCompatActivity {
                 //Log.d(TAG,"Value is"+ Value1);
                 if (Value1==1) {
                     Switch1.setText("LED2_ON");
-                    Value0=0;
+                    Value01=0;
                 } else {
                     Switch1.setText("LED2_OFF");
-                    Value0=1;
+                    Value01=1;
                 }
             }
 
@@ -175,7 +175,7 @@ public class First extends AppCompatActivity {
         Switch1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LED1.setValue(Value0);
+                LED1.setValue(Value01);
             }
         });
 
@@ -187,10 +187,10 @@ public class First extends AppCompatActivity {
                 //Log.d(TAG,"Value is"+ Value1);
                 if (Value1==1) {
                     Switch2.setText("LED3_ON");
-                    Value0=0;
+                    Value02=0;
                 } else {
                     Switch2.setText("LED3_OFF");
-                    Value0=1;
+                    Value02=1;
                 }
             }
 
@@ -203,7 +203,7 @@ public class First extends AppCompatActivity {
         Switch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LED2.setValue(Value0);
+                LED2.setValue(Value02);
             }
         });
 
@@ -215,10 +215,10 @@ public class First extends AppCompatActivity {
                 //Log.d(TAG,"Value is"+ Value1);
                 if (Value1==1) {
                     Switch3.setText("LED4_ON");
-                    Value0=0;
+                    Value03=0;
                 } else {
                     Switch3.setText("LED4_OFF");
-                    Value0=1;
+                    Value03=1;
                 }
             }
 
@@ -231,7 +231,7 @@ public class First extends AppCompatActivity {
         Switch3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LED3.setValue(Value0);
+                LED3.setValue(Value03);
             }
         });
     }
