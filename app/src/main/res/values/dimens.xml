@@ -2,4 +2,6 @@
 <resources>
     <dimen name="textsize">30sp</dimen>
     <dimen name="textsize1">35sp</dimen>
+    <dimen name="textsize2">25sp</dimen>
+    <dimen name="textsize3">20sp</dimen>
 </resources>
