@@ -17,17 +17,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.Map;
 
 public class First extends AppCompatActivity {
 
     public FirebaseDatabase firebaseDatabase;
-    public DatabaseReference LED,LED1,LED2,LED3,Refer,Refer1;
+    public DatabaseReference LED,LED1,LED2,LED3,Refer,Refer1,Refer2;
     public static final String TAG = "LEDs Control";
     public Button Switch, Switch1, Switch2, Switch3;
     public Integer Value1, Value0, Value01, Value02, Value03;
     public String Data;
-    public TextView txtname,textview,textview1,textview2,textview3;
+    public TextView txtname,textview,textview1,textview2,textview3,txtTemp,txtHumid;
 
 
 
@@ -44,6 +46,7 @@ public class First extends AppCompatActivity {
 
         Refer = firebaseDatabase.getReference();
         Refer1 = firebaseDatabase.getReference();
+        Refer2 = firebaseDatabase.getReference();
 
         txtname = (TextView)  findViewById(R.id.txtViewname);
 
@@ -51,6 +54,10 @@ public class First extends AppCompatActivity {
         textview1 = (TextView) findViewById(R.id.txtView1);
         textview2 = (TextView) findViewById(R.id.txtView3);
         textview3 = (TextView) findViewById(R.id.txtView4);
+        txtHumid = (TextView) findViewById(R.id.txtHumid);
+        txtTemp = (TextView) findViewById(R.id.txtTemp);
+
+
 
         Refer.addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,6 +128,35 @@ public class First extends AppCompatActivity {
 
             }
         });
+
+        Refer2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map map = (Map) dataSnapshot.getValue();
+                Data = String.valueOf(map.get("humid"));
+                txtHumid.setText(Data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Refer2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map map = (Map) dataSnapshot.getValue();
+                Data = String.valueOf(map.get("temp"));
+                txtTemp.setText(Data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
         Switch = (Button) findViewById(R.id.button3);
